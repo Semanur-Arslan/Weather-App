@@ -1,7 +1,8 @@
-import { createContext } from "react";
+import React, { createContext, useContext, useReducer } from 'react'; // Gerekli importları ekledik
+
 
 // öncelikle bir contex oluşturuyoruz
-const WeatherContex = createContext()
+const WeatherContext = createContext()
 
 // başlangıç durumunu belirliyoruz
 const initialState = {
@@ -65,4 +66,4 @@ const initialState = {
     // useWeather custom hook'u oluşturuyoruz.
     // WeatherContext içindeki state ve dispatch fonksiyonuna erişmek için kullanılır.
 
-  
+    export { WeatherProvider, useWeather };
