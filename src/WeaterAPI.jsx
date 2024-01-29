@@ -13,7 +13,7 @@ const api = axios.create({
         params: {
           q: city,
           appid: apiKey,
-          units: 'metric', // veya imperial, tercihinize göre
+          units: 'metric', 
         },
 
         
@@ -26,5 +26,6 @@ const api = axios.create({
       throw error;
     }
   };
+  
 
 // API'nin /forecast endpoint'ine bir GET isteği gönderiyoruz.

@@ -67,3 +67,4 @@ const initialState = {
     // WeatherContext içindeki state ve dispatch fonksiyonuna erişmek için kullanılır.
 
     export { WeatherProvider, useWeather };
+
