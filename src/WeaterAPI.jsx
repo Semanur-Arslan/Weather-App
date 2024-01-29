@@ -15,8 +15,12 @@ const api = axios.create({
           appid: apiKey,
           units: 'metric', // veya imperial, tercihinize göre
         },
+
+        
       });
   
+      console.log('Alınan Veri:', response.data);
+
       return response.data;
     } catch (error) {
       throw error;
