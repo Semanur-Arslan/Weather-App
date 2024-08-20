@@ -12,7 +12,7 @@ This project is a React application that provides a 7-day weather forecast for a
 #### Axios: A promise-based HTTP client for making API requests.
 
 ## Installation
-#### Clone this repository: git clone https://github.com/your-username/weather-forecast-app.git
+#### Clone this repository: git clone https://github.com/Semanur-Arslan/Weather-App.git
 #### Install dependencies: npm install
 #### Start the application: npm start
 
