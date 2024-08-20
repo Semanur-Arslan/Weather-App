@@ -2,7 +2,6 @@ import axios from "axios";
 
 const apiKey = "cf3d2f7cb1c203206734dde024bd1e10"
 
-//Burada temel URL belirliyoruz. Temel URL'ye göre istekleri yapacağız.
 const api = axios.create({
     baseURL: 'https://api.openweathermap.org/data/2.5',
   });
@@ -26,6 +25,3 @@ const api = axios.create({
       throw error;
     }
   };
-  
-
-// API'nin /forecast endpoint'ine bir GET isteği gönderiyoruz.

@@ -15,6 +15,4 @@ root.render(
 );
 
 
-// WeatherProvider ile global state'i tüm uygulama içerisinde kullanacağız.
-
 

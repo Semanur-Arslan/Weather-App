@@ -5,22 +5,15 @@ import Select from "react-select";
 import "../src/weatherApp.css";
 
 const WeatherApp = () => {
-  // useWeather hook'u ile WeatherContext'ten state ve dispatch'i alıyoruz.
   const { state, dispatch } = useWeather();
 
-  // useEffect , bileşen yüklendiği anda ve state.selectedCity değiştiğinde çalışacak.
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // WeaterAPI.jsx dosyasında API'den çektiğimiz verileri alıyoruz
-        // state.selectedCity -> WeatherContext'ten gelen şehir bilgisini içerir.
         const data = await fetchWeatherData(state.selectedCity);
 
-        // fetchWeatherData(API)'dan gelen veriyi kullanarak WeatherContext'teki state'i güncelliyoruz.
-        // Güncellemeyi SET_WEATHER_DATA action'ı ile yapıyoruz.
         dispatch({ type: "SET_WEATHER_DATA", payload: data });
       } catch (error) {
-        // Hata durumunu kontrol ediyoruz.
         console.error("Hava durumu verileri alınırken hata oluştu:", error);
       }
     };
@@ -28,7 +21,6 @@ const WeatherApp = () => {
     fetchData();
   }, [state.selectedCity, dispatch]);
 
-  // Select bileşeni için seçenekler
   const cityOptions = [
     { value: "Adana", label: "Adana" },
     { value: "Adıyaman", label: "Adıyaman" },
@@ -113,43 +105,30 @@ const WeatherApp = () => {
     { value: "Düzce", label: "Düzce" },
   ];
 
-  // Select bileşeni için onChange olayı
   const handleCityChange = (selectedOption) => {
-    // Seçilen şehri WeatherContext'e iletiyoruz.
     dispatch({ type: "SET_SELECTED_CITY", payload: selectedOption.value });
   };
 
-  // API den gelen verileriin günlük ortalamasını almak ve ekrana yazdırmak için gerekli fonksiyon
   const renderWeatherAverages = () => {
     if (state.weatherData && state.weatherData.list) {
-      // Günlük ortalamaları tutmak için bir nesne oluşturuyoruz
       const dailyAverages = {};
 
-      // Her gün için verileri grupluyoruz ve ortalamasını alıyoruz
-      // state.weatherData.list içindeki her bir period için döngü başlatıyoruz
       state.weatherData.list.forEach((period) => {
-        // dt_txt: "2024-02-04 18:00:00" gelen veri bu şekilde. buradan sadece tarihi(gün bilgisini) alıyoruz.
         const date = period.dt_txt.split(" ")[0];
 
-        // Eğer dailyAverages nesnesinde bu gün için bir giriş yoksa, yeni bir giriş oluşturan if sorgusunu yazıyoruz
         if (!dailyAverages[date]) {
           dailyAverages[date] = {
-            tempSum: 0, // Sıcaklık toplamını saklamak için
-            feelsLikeSum: 0, // Hissedilen sıcaklık toplamını saklamak için
-            count: 0, // Ölçüm sayısını saklamak için
+            tempSum: 0,
+            feelsLikeSum: 0,
+            count: 0,
           };
         }
-        // Bu gün için sıcaklık, hissedilen sıcaklık ve ölçüm sayısını gelen ölçüm değerlerini kullanarak toplayıp nesnemize kaydediyoruz
         dailyAverages[date].tempSum += period.main.temp;
         dailyAverages[date].feelsLikeSum += period.main.feels_like;
         dailyAverages[date].count++;
       });
 
-      //bir önceki yaptığımız işlme göre dailyAverages nesnesi, her bir tarih için bir nesne içermektedir.
-      //  Object.keys(dailyAverages) kullanıldığında, bu nesnenin anahtarları olan tarihlerin bir dizisi elde edilir.
-
       const allDates = Object.keys(dailyAverages);
-      //  allDates dizisini map fonksiyonu ile dönüyoruz ve günlere ait ortalama değerleri hesaplıyoruz.
       return allDates.map((date, index) => {
         const average = {
           temp: dailyAverages[date].tempSum / dailyAverages[date].count,
@@ -157,19 +136,15 @@ const WeatherApp = () => {
             dailyAverages[date].feelsLikeSum / dailyAverages[date].count,
         };
 
-        // Tarihi JavaScript Date objesine çeviriyoruz
         const currentDate = new Date(date);
-        // Date objesinden gün bilgisini alıyoruz
         const dayOfWeek = currentDate.toLocaleDateString("en-US", {
           weekday: "short",
         });
 
-        //  hava durumu bilgisini alıyoruz (güneşli, yağmurlu, vb.)
         const weatherCondition = state.weatherData.list.find(
           (period) => period.dt_txt.split(" ")[0] === date
         )?.weather[0]?.description;
 
-        // Hava durumuna göre SVG ikon belirleme fonksiyonu
         const getWeatherIcon = (condition) => {
           switch (condition) {
             case "Clear":
@@ -205,7 +180,6 @@ const WeatherApp = () => {
 
         const iconFileName = getWeatherIcon(weatherCondition);
 
-        // bulunduğmuz günü işaretleme
         const today = new Date();
         const isToday = currentDate.getDate() === today.getDate();
   
