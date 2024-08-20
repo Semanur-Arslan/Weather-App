@@ -1,6 +1,8 @@
 # Weather Forecast Application
 This project is a React application that provides a 7-day weather forecast for a selected city using the OpenWeatherMap API. It uses the Axios library to fetch weather data and is built with React.
 
+![Weather-App](Weather-App.jpeg)
+
 ## Features
 #### 7-day weather forecast for the selected city.
 #### Weather information is displayed in Celsius (metric) units.
