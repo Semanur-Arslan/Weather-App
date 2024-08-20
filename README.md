@@ -19,7 +19,6 @@ This project is a React application that provides a 7-day weather forecast for a
 ## Usage
 #### When the application starts, it prompts the user to enter a city name.
 #### After entering the city name, the 7-day weather forecast data will be displayed on the screen.
-#### Weather information includes temperature, humidity, wind speed, and weather conditions.
 
 
 
